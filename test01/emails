@@ -1,0 +1,36 @@
+#测试邮箱发送，里面有两个坑：需要注意邮箱是否开启了 pop模式和smtp    然后适配他们的地址和默认端口号。但前只是简单的测试发送文本，
+#后期还有图片和其他文档内容。
+from email.mime.text import MIMEText
+
+msg=MIMEText('hello,send by python...','plain','utf-8')
+
+from_addr = input('From:')
+from_addr = 'guoxinbaichi@sina.cn'
+password = input('password:')
+password = 'asd314156w'
+
+
+#shoujiarne 
+to addr = input('To:')
+to_addr = '522757183@qq.com'
+
+#输入SMTP服务器地址：
+smtp_server = input('SMPT server :')
+smtp_server = 'smtp.qq.com'
+smtp_server = 'smtp.sina.cn'
+
+import smtplib 
+
+server = smtplib.SMTP(smtp_server,587)
+server.set_debuglevel(1)
+server.login(from_addr,password)
+server.sendmail(from_addr,[to_addr],msg,as_string())
+server.quit()
+
+
+import smtplib
+server = smtplib.SMTP(smtp_server, 25) # SMTP协议默认端口是25
+server.set_debuglevel(1)
+server.login(from_addr, password)
+server.sendmail(from_addr, [to_addr], msg.as_string())
+server.quit()
